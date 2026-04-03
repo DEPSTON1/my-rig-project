@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAC & Rig Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SAC & Rig Tracker</h1>
+            <div class="controls">
+                <label>Роль (для теста удаления): 
+                    <select id="userRole">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </label>
+                <button id="exportPdfBtn" class="btn btn-secondary">Экспорт в PDF</button>
+            </div>
+        </header>
+
+        <form id="addForm" class="add-form">
+            <input type="text" id="daVinciNumber" placeholder="DaVinci Number" required>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="company" placeholder="Company">
+            <input type="text" id="division" placeholder="Division">
+            <input type="text" id="supervisorName" placeholder="Supervisor Name">
+            <input type="text" id="mentorName" placeholder="Mentor Name">
+            <select id="sacRanking">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <input type="text" id="rig" placeholder="RIG">
+            <input type="number" id="daysOnRig" placeholder="Days on Rig">
+            <input type="date" id="dateIn" required>
+            <input type="date" id="dateOut">
+            <input type="date" id="dateOnboard">
+            <select id="sseRate">
+                <option value="LOW">LOW</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="HIGH">HIGH</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Add Row</button>
+        </form>
+
+        <div class="table-wrapper">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>DaVinci #</th><th>Name</th><th>Company</th><th>Division</th>
+                        <th>Supervisor</th><th>Mentor</th><th>SAC Ranking</th><th>SSE Days</th>
+                        <th>RIG</th><th>Days on Rig</th><th>Date In</th><th>Date Out</th>
+                        <th>Date Onboard</th><th>Days to Complete SAC</th><th>Date to Complete SAC</th>
+                        <th>Completed</th><th>SSE Rate</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
