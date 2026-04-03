@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>SSE & Rig Tracker</title>
@@ -9,15 +9,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Панель управления SSE & Rig</h1>
+        <h1>SSE & Rig Management Panel</h1>
         
         <form id="addForm" class="grid-form">
             <input type="text" id="daVinciNumber" placeholder="DaVinci #" required>
-            <input type="text" id="name" placeholder="Имя" required>
-            <input type="text" id="company" placeholder="Компания">
-            <input type="text" id="division" placeholder="Департамент">
-            <input type="text" id="supervisorName" placeholder="Супервайзер">
-            <input type="text" id="mentorName" placeholder="Ментор">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="text" id="company" placeholder="Company">
+            <input type="text" id="division" placeholder="Division">
+            <input type="text" id="supervisorName" placeholder="Supervisor">
+            <input type="text" id="mentorName" placeholder="Mentor">
             
             <select id="sseRate">
                 <option value="LOW">SSE Rate: LOW (14 days)</option>
@@ -25,14 +25,14 @@
                 <option value="HIGH">SSE Rate: HIGH (86 days)</option>
             </select>
 
-            <input type="text" id="rig" placeholder="RIG">
-            <input type="number" id="daysOnRig" placeholder="Дней на Rig" value="0">
+            <input type="text" id="rig" placeholder="RIG Name">
+            <input type="number" id="daysOnRig" placeholder="Days on Rig" value="0">
             <label>Date In: <input type="date" id="dateIn" required></label>
             <label>Date Out: <input type="date" id="dateOut"></label>
             <label>Onboard: <input type="date" id="dateOnboard"></label>
             
-            <button type="submit" class="btn-add">Добавить строку</button>
-            <button type="button" id="pdfBtn" class="btn-pdf">Скачать PDF</button>
+            <button type="submit" class="btn-add">Add Record</button>
+            <button type="button" id="pdfBtn" class="btn-pdf">Download PDF</button>
         </form>
 
         <div class="table-container">
@@ -43,7 +43,7 @@
                         <th>Super</th><th>Mentor</th><th>SSE Rate</th><th>SSE Days</th>
                         <th>RIG</th><th>Days Rig</th><th>In</th><th>Out</th>
                         <th>Onboard</th><th>Days to Complete</th><th>Date to Complete</th>
-                        <th>Completed</th><th>Actions</th>
+                        <th>Status</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody"></tbody>
