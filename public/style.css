@@ -1,90 +1,157 @@
-:root {
-    --bg-color: #f4f7f6;
-    --text-color: #333;
-    --border-color: #ddd;
-    --primary: #007bff;
-    --danger: #dc3545;
-    --blue-highlight: #cce5ff;
-}
-
+/* Основные настройки темной темы */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
+    background-color: #121212; /* Глубокий черный/серый */
+    color: #e0e0e0; /* Светло-серый текст */
     margin: 0;
     padding: 20px;
-    color: var(--text-color);
 }
 
 .container {
-    max-width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    background: #fff;
+    background-color: #1e1e1e; /* Цвет карточки */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    color: #00d4ff; /* Яркий акцент */
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Стили формы ввода */
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+    background: #252525;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #333;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.add-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 6px;
-}
-
-.add-form input, .add-form select {
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    flex: 1 1 150px;
-}
-
-.btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.grid-form input, .grid-form select {
+    background-color: #333;
+    border: 1px solid #444;
     color: #fff;
-    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s;
 }
 
-.btn-primary { background-color: var(--primary); }
-.btn-secondary { background-color: #6c757d; }
-.btn-danger { background-color: var(--danger); padding: 4px 8px; font-size: 12px;}
+.grid-form input:focus, .grid-form select:focus {
+    border-color: #00d4ff;
+}
 
-.table-wrapper {
+.grid-form label {
+    font-size: 0.85rem;
+    color: #aaa;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Кнопки */
+.btn-add {
+    background-color: #00c853;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #00e676;
+}
+
+.btn-pdf {
+    background-color: #2979ff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-pdf:hover {
+    background-color: #448aff;
+}
+
+/* Таблица */
+.table-container {
     overflow-x: auto;
+    margin-top: 20px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    white-space: nowrap;
-    font-size: 14px;
+    background-color: #1e1e1e;
+    font-size: 13px;
 }
 
 th, td {
-    border: 1px solid var(--border-color);
-    padding: 10px;
+    padding: 12px 15px;
     text-align: left;
+    border-bottom: 1px solid #333;
 }
 
 th {
-    background-color: #343a40;
-    color: #fff;
+    background-color: #333;
+    color: #00d4ff;
+    text-transform: uppercase;
+    font-size: 11px;
 }
 
-/* Динамические классы для JS */
-.bg-blue { background-color: var(--blue-highlight) !important; }
+tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* Цветовые статусы для SSE Rate */
+.rate-low { color: #81c784; font-weight: bold; }
+.rate-medium { color: #ffd54f; font-weight: bold; }
+.rate-high { color: #e57373; font-weight: bold; }
+
+/* Кнопка удаления */
+button[onclick^="deleteRow"] {
+    background: none;
+    border: none;
+    color: #ff5252;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+
+button[onclick^="deleteRow"]:hover {
+    transform: scale(1.3);
+}
+
+/* Скроллбар для темной темы */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
 .rate-low { color: #fff; background-color: #28a745 !important; font-weight: bold; text-align: center;}
 .rate-medium { color: #fff; background-color: #fd7e14 !important; font-weight: bold; text-align: center;}
 .rate-high { color: #fff; background-color: #dc3545 !important; font-weight: bold; text-align: center;}
