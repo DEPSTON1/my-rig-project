@@ -1,62 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAC & Rig Tracker</title>
+    <title>SSE & Rig Tracker</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>SAC & Rig Tracker</h1>
-            <div class="controls">
-                <label>Роль (для теста удаления): 
-                    <select id="userRole">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </label>
-                <button id="exportPdfBtn" class="btn btn-secondary">Экспорт в PDF</button>
-            </div>
-        </header>
-
-        <form id="addForm" class="add-form">
-            <input type="text" id="daVinciNumber" placeholder="DaVinci Number" required>
-            <input type="text" id="name" placeholder="Name" required>
-            <input type="text" id="company" placeholder="Company">
-            <input type="text" id="division" placeholder="Division">
-            <input type="text" id="supervisorName" placeholder="Supervisor Name">
-            <input type="text" id="mentorName" placeholder="Mentor Name">
-            <select id="sacRanking">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-            <input type="text" id="rig" placeholder="RIG">
-            <input type="number" id="daysOnRig" placeholder="Days on Rig">
-            <input type="date" id="dateIn" required>
-            <input type="date" id="dateOut">
-            <input type="date" id="dateOnboard">
+        <h1>Панель управления SSE & Rig</h1>
+        
+        <form id="addForm" class="grid-form">
+            <input type="text" id="daVinciNumber" placeholder="DaVinci #" required>
+            <input type="text" id="name" placeholder="Имя" required>
+            <input type="text" id="company" placeholder="Компания">
+            <input type="text" id="division" placeholder="Департамент">
+            <input type="text" id="supervisorName" placeholder="Супервайзер">
+            <input type="text" id="mentorName" placeholder="Ментор">
+            
             <select id="sseRate">
-                <option value="LOW">LOW</option>
-                <option value="MEDIUM">MEDIUM</option>
-                <option value="HIGH">HIGH</option>
+                <option value="LOW">SSE Rate: LOW (14 days)</option>
+                <option value="MEDIUM">SSE Rate: MEDIUM (56 days)</option>
+                <option value="HIGH">SSE Rate: HIGH (86 days)</option>
             </select>
-            <button type="submit" class="btn btn-primary">Add Row</button>
+
+            <input type="text" id="rig" placeholder="RIG">
+            <input type="number" id="daysOnRig" placeholder="Дней на Rig" value="0">
+            <label>Date In: <input type="date" id="dateIn" required></label>
+            <label>Date Out: <input type="date" id="dateOut"></label>
+            <label>Onboard: <input type="date" id="dateOnboard"></label>
+            
+            <button type="submit" class="btn-add">Добавить строку</button>
+            <button type="button" id="pdfBtn" class="btn-pdf">Скачать PDF</button>
         </form>
 
-        <div class="table-wrapper">
-            <table id="dataTable">
+        <div class="table-container">
+            <table id="mainTable">
                 <thead>
                     <tr>
-                        <th>DaVinci #</th><th>Name</th><th>Company</th><th>Division</th>
-                        <th>Supervisor</th><th>Mentor</th><th>SAC Ranking</th><th>SSE Days</th>
-                        <th>RIG</th><th>Days on Rig</th><th>Date In</th><th>Date Out</th>
-                        <th>Date Onboard</th><th>Days to Complete SAC</th><th>Date to Complete SAC</th>
-                        <th>Completed</th><th>SSE Rate</th><th>Actions</th>
+                        <th>DaVinci</th><th>Name</th><th>Company</th><th>Div</th>
+                        <th>Super</th><th>Mentor</th><th>SSE Rate</th><th>SSE Days</th>
+                        <th>RIG</th><th>Days Rig</th><th>In</th><th>Out</th>
+                        <th>Onboard</th><th>Days to Complete</th><th>Date to Complete</th>
+                        <th>Completed</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody"></tbody>
