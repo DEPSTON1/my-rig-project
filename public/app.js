@@ -3,9 +3,6 @@ const API_URL = '/api/data';
 document.getElementById('addForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Собираем данные. SSE Rate теперь один за всех.
-    const sseValue = document.getElementById('sseRate').value;
-
     const data = {
         daVinciNumber: document.getElementById('daVinciNumber').value,
         name: document.getElementById('name').value,
@@ -13,7 +10,7 @@ document.getElementById('addForm').addEventListener('submit', async (e) => {
         division: document.getElementById('division').value,
         supervisorName: document.getElementById('supervisorName').value,
         mentorName: document.getElementById('mentorName').value,
-        sseRate: sseValue, // Используем один параметр
+        sseRate: document.getElementById('sseRate').value,
         rig: document.getElementById('rig').value,
         daysOnRig: Number(document.getElementById('daysOnRig').value) || 0,
         dateIn: document.getElementById('dateIn').value,
@@ -32,10 +29,10 @@ document.getElementById('addForm').addEventListener('submit', async (e) => {
             location.reload(); 
         } else {
             const errData = await response.json();
-            alert("Ошибка сервера: " + errData.error);
+            alert("Server Error: " + errData.error);
         }
     } catch (err) {
-        alert("Ошибка сети! Проверьте MONGO_URI на Render.");
+        alert("Connection Error! Check MONGO_URI in Render settings.");
     }
 });
 
@@ -45,7 +42,7 @@ async function loadData() {
         const rawData = await res.json();
         renderTable(rawData);
     } catch (err) {
-        console.error("Ошибка загрузки:", err);
+        console.error("Load Error:", err);
     }
 }
 
@@ -64,7 +61,6 @@ function renderTable(data) {
         const dOut = row.dateOut ? new Date(row.dateOut) : today;
         const sseDays = Math.max(0, Math.floor((dOut - dIn) / (1000 * 60 * 60 * 24)));
 
-        // Логика дней: LOW=14, MEDIUM=56, HIGH=86
         const daysMap = { 'LOW': 14, 'MEDIUM': 56, 'HIGH': 86 };
         const daysToComplete = daysMap[row.sseRate] || 0;
         const dateToComplete = new Date(dIn.getTime() + (daysToComplete * 24 * 60 * 60 * 1000));
@@ -74,7 +70,7 @@ function renderTable(data) {
         const isHighlight = totalRig >= sseDays;
 
         const tr = document.createElement('tr');
-        if (isHighlight) tr.style.backgroundColor = '#cce5ff';
+        if (isHighlight) tr.style.backgroundColor = '#1a3a5a'; // Subtle dark blue highlight
 
         tr.innerHTML = `
             <td>${row.daVinciNumber}</td>
@@ -92,15 +88,15 @@ function renderTable(data) {
             <td>${row.dateOnboard || '-'}</td>
             <td>${daysToComplete}</td>
             <td>${dateToComplete.toISOString().split('T')[0]}</td>
-            <td style="font-weight: bold">${isHighlight ? 'COMPLETE' : (isPastDate ? 'yes' : 'no')}</td>
-            <td><button onclick="deleteRow('${row._id}')">❌</button></td>
+            <td style="font-weight: bold">${isHighlight ? 'COMPLETE' : (isPastDate ? 'YES' : 'NO')}</td>
+            <td><button onclick="deleteRow('${row._id}')">🗑️</button></td>
         `;
         tbody.appendChild(tr);
     });
 }
 
 async function deleteRow(id) {
-    const password = prompt("Введите пароль (201214):");
+    const password = prompt("Admin Password Required:");
     if (!password) return;
 
     const res = await fetch(`${API_URL}/${id}`, {
@@ -109,14 +105,14 @@ async function deleteRow(id) {
     });
 
     if (res.ok) location.reload();
-    else alert("Неверный пароль!");
+    else alert("Access Denied: Wrong Password!");
 }
 
 document.getElementById('pdfBtn').onclick = () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('l', 'mm', 'a4');
-    doc.autoTable({ html: '#mainTable' });
-    doc.save('Report.pdf');
+    doc.autoTable({ html: '#mainTable', theme: 'dark' });
+    doc.save('SSE_Rig_Report.pdf');
 };
 
 loadData();
